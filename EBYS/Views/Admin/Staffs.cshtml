@@ -1,0 +1,318 @@
+﻿@model Entities.ViewModels.AddNewStaffViewModel
+
+@{
+    ViewData["Title"] = "Personeller";
+}
+
+<form id="form" asp-controller="Admin" asp-action="Staffs" method="post">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-10">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                            <li class="pt-2 px-3"><h3 class="card-title">Yeni Personel Ekle</h3></li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Kişisel Bilgiler</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Birim Bilgileri</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Makam Bilgileri</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-two-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                                <div class="form-group row">
+                                    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10">
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10">
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Nickname" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10">
+                                        <input asp-for="Nickname" class="form-control" />
+                                        <span asp-validation-for="Nickname" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Gender" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10">
+                                        <select asp-for="Gender" class="form-control">
+                                            <option value="Erkek">Erkek</option>
+                                            <option value="Kadın">Kadın</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="DateOfBirth" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10">
+                                        <input type="date" asp-for="DateOfBirth" class="form-control" />
+                                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                                <div class="form-group row">
+                                    <label asp-for="Title" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10">
+                                        <input type="text" asp-for="Title" class="form-control" />
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="UnitId" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10">
+                                        <select asp-for="UnitId" class="form-control">
+                                            @foreach (var unit in Model.Units)
+                                            {
+                                                if (unit.Id == Model.UnitId)
+                                                {
+                                                    <option value="@unit.Id" selected>@unit.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@unit.Id">@unit.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span asp-validation-for="UnitId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Makamlar</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Makam seçiniz</label>
+                                                        <select asp-for="OfficeList" class="form-control" multiple="multiple">
+                                                            @foreach (Entities.Concrete.Unit unit in Model.Units)
+                                                            {
+                                                                <optgroup label="@unit.Name">
+                                                                    @foreach (Entities.Concrete.Office office in unit.Offices)
+                                                                    {
+                                                                        if (unit.Id == office.UnitId)
+                                                                        {
+                                                                            if (Model.ChairList.Contains(office.Id)) { }
+                                                                            else
+                                                                            {
+                                                                                <option value="@office.Id">@office.Name</option>
+                                                                            }
+
+                                                                        }
+                                                                    }
+                                                                </optgroup>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <button id="CheckStaffExist" type="button" class="btn btn-danger float-sm-right">Gönder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+</form>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="documents" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                            <th>@Html.DisplayNameFor(model => model.Nickname)</th>
+                            <th>@Html.DisplayNameFor(model => model.Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.UnitId)</th>
+                            <th>@Html.DisplayNameFor(model => model.DateOfBirth)</th>
+                            <th>@Html.DisplayNameFor(model => model.Gender)</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Staffs)
+                        {
+                            <tr>
+                                <td>
+                                    <label class="text-muted font-weight-bold">@item.Name</label>
+                                </td>
+                                <td>
+                                    <label class="text-muted font-weight-bold">@item.LastName</label>
+                                </td>
+                                <td>
+                                    <label class="text-muted font-weight-bold">@item.Nickname</label>
+                                </td>
+                                <td>
+                                    <label class="text-muted font-weight-bold">@item.Title</label>
+                                </td>
+                                <td>
+                                    <label class="text-muted font-weight-bold">@item.Unit.Name</label>
+                                </td>
+                                <td>
+                                    <input type="date" asp-for="@item.DateOfBirth" disabled />
+                                </td>
+                                <td>
+                                    <label class="text-muted font-weight-bold">@item.Gender</label>
+                                </td>
+                                <td>
+                                    <a asp-controller="Admin" asp-action="Staffs" asp-route-id="@item.Id.ToString()">
+                                        <i class="fa fa-fw fa-edit"></i>
+                                        <p>Güncelle</p>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-toggle="moBusiness" data-target="#moBusiness-danger" href="#" onclick="GetStaffId(@item.Id.ToString())">
+                                        <i class="fa fa-fw fa-trash"></i>
+                                        <p>Sil</p>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                            <th>@Html.DisplayNameFor(model => model.Nickname)</th>
+                            <th>@Html.DisplayNameFor(model => model.Title)</th>
+                            <th>@Html.DisplayNameFor(model => model.UnitId)</th>
+                            <th>@Html.DisplayNameFor(model => model.DateOfBirth)</th>
+                            <th>@Html.DisplayNameFor(model => model.Gender)</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
+<div class="moBusiness fade" id="moBusiness-danger">
+    <div class="moBusiness-dialog">
+        <div class="moBusiness-content bg-danger">
+            <div class="moBusiness-header">
+                <h4 class="moBusiness-title">Uyarı!</h4>
+                <button type="button" class="close" data-dismiss="moBusiness" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="moBusiness-body">
+                <p>Seçili personel ve ona ait tüm bilgiler silinecektir. Onaylıyor musunuz?</p>
+            </div>
+            <div class="moBusiness-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="moBusiness">İptal et</button>
+                <button id="ConfirmDelete" type="button" class="btn btn-outline-light" data-dismiss="moBusiness">Onayla</button>
+            </div>
+        </div>
+        <!-- /.moBusiness-content -->
+    </div>
+    <!-- /.moBusiness-dialog -->
+</div>
+<!-- /.moBusiness -->
+
+
+
+
+@section StyleSheet{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+
+    <script type="text/javascript">
+         var id = "0";
+
+        function GetStaffId(staffId) {
+            id = staffId;
+        }
+
+        $('#ConfirmDelete').click(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Admin/StaffDelete",
+                    data: { 'id': id },
+                    success: function (isDeleted) {
+                        if (isDeleted) {
+                            toastr.success('Personel başarıyla silindi.');
+                            setTimeout(document.location.reload(), 60000);
+                        }
+                        else {
+                            toastr.warning("İşlem gerçekleşirken bir hata oluştu. Daha sonra tekrar deneyiniz");
+                        }
+                    }
+                })
+            }
+        )
+
+        $("#CheckStaffExist").click(function () {
+            var nickname = $('#Nickname').val();
+            $.ajax({
+                type: "post",
+                url: "/Admin/ControlStaffExist",
+                data: { 'nickname': nickname },
+                success: function (isExist) {
+                    if (isExist) {
+                        toastr.error("Bu kullanıcı ismine sahip bir hesap zaten mevcut!");
+                    }
+                    else {
+                        $("#form").submit();
+                        toastr.success('İşlem başarıyla gerçekleştirildi.');
+                    }
+                }
+            })
+        }
+        )
+    </script>
+}

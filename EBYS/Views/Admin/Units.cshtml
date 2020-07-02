@@ -1,0 +1,295 @@
+﻿@model Entities.ViewModels.AddNewUnitViewModel
+
+@{
+    ViewData["Title"] = "Birimler";
+}
+
+<form id="form" asp-controller="Admin" asp-action="Units" method="post">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-10">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                            <li class="pt-2 px-3"><h3 class="card-title">Yeni Birim Ekle</h3></li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Birim Bilgileri</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Ofisler</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-two-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                                <div class="form-group row">
+                                    <label asp-for="Name" class="col-form-label"></label>
+                                    <div class="form-group col-sm-5">
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="UpperUnitId" class="col-form-label"></label>
+                                    <div class="form-group col-sm-5 ">
+                                        <select asp-for="UpperUnitId" class="form-control">
+                                            <option value="1">Merkez</option>
+                                            @foreach (var unit in Model.Units)
+                                            {
+                                                <option value="@unit.Id">@unit.Name</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="UpperUnitId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Ofisler</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <input type="button" value="Yeni Ofis Ekle" onclick="AddNewOffice()" class="btn btn-block btn-secondary" />
+                                                        <label asp-for="Manager" class="col-form-label"></label>
+                                                        <input type="text" asp-for="Manager" class="form-control" placeholder="Ofis ismini belirtiniz" />
+                                                        <ul id="OfficesList" style="list-style:none;">
+                                                            @if (Model.Offices != null)
+                                                            {
+                                                                int i = 0;
+                                                                foreach (Entities.Concrete.Office office in Model.Offices)
+                                                                {
+                                                                    if (!office.IsManager)
+                                                                    {
+                                                                        <li id="@office.Id.ToString()_li">
+                                                                            <label class="col-form-label">Birden fazla kişi atanabilir: </label>
+                                                                            <input type="checkbox" id="Offices_@i.ToString()__IsMultiple" name="Offices[@i.ToString()].IsMultiple" value="true" checked="@office.IsMultiple" class="form-check" />
+                                                                            <br />
+                                                                            <input type="checkbox" id="Offices_@i.ToString()__IsBusiness" name="Offices[@i.ToString()].IsBusiness" value="false" class="form-check" hidden />
+                                                                            <br />
+                                                                            <label class="col-form-label">Ofis İsmi:</label>
+                                                                            <input type="text" id="Offices_@i.ToString()__Name" name="Offices[@i.ToString()].Name" class="form-control" value="@office.Name" placeholder="Ofis ismini belirtiniz" />
+                                                                            <br />
+                                                                            <input type="button" value="Kaldır" onclick="RemoveOffice(@office.Id.ToString())" class="btn btn-block btn-secondary col-3" />
+                                                                        </li>
+                                                                        i++;
+                                                                    }
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+
+                                        </div>
+                                        <!-- /.card-footer-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <button id="CheckUnitExist" type="button" class="btn btn-danger float-sm-right">Gönder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</form>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <table id="documents" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </thead>
+                    @if (Model != null)
+                    {
+                        <tbody>
+                            @foreach (var item in Model.Units)
+                            {
+                                <tr>
+                                    <td>
+                                        <label class="text-muted font-weight-bold">@item.Name</label>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Admin" asp-action="Units" asp-route-id="@item.Id">
+                                            <i class="fa fa-fw fa-edit"></i>
+                                            <p>Güncelle</p>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a data-toggle="moBusiness" data-target="#moBusiness-danger" href="#" onclick="GetUnitId(@item.Id.ToString())">
+                                            <i class="fa fa-fw fa-trash"></i>
+                                            <p>Sil</p>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="10">
+                                Sistemde kayıtlı birim(ler) bulunamadı!
+                            </td>
+                        </tr>
+                    }
+                    <tfoot>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
+<div class="moBusiness fade" id="moBusiness-danger">
+    <div class="moBusiness-dialog">
+        <div class="moBusiness-content bg-danger">
+            <div class="moBusiness-header">
+                <h4 class="moBusiness-title">Uyarı!</h4>
+                <button type="button" class="close" data-dismiss="moBusiness" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="moBusiness-body">
+                <p>Seçili personel ve ona ait tüm bilgiler silinecektir. Onaylıyor musunuz?</p>
+            </div>
+            <div class="moBusiness-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="moBusiness">İptal et</button>
+                <button id="ConfirmDelete" type="button" class="btn btn-outline-light" data-dismiss="moBusiness">Onayla</button>
+            </div>
+        </div>
+        <!-- /.moBusiness-content -->
+    </div>
+    <!-- /.moBusiness-dialog -->
+</div>
+<!-- /.moBusiness -->
+
+
+
+
+
+@section StyleSheet{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+
+}
+
+@section Scripts{
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+
+    <script type="text/javascript">
+        var id = "null";
+
+        function GetUnitId(unitId) {
+            id = unitId;
+        }
+
+        function AddNewOffice() {
+            var index = document.getElementById("OfficesList").children.length;
+
+            $(".form-group ul").append('<li id="' + index + '_li"> <label class="col-form-label">Birden fazla kişi atanabilir: </label> <input class="form-check" type="checkbox" id="Offices_' + index + '__IsMultiple" name="Offices[' + index + '].IsMultiple" value="true"> <br />  <br /> <input type="checkbox" id="Offices_' + index + '__IsBusiness" name="Offices[' + index + '].IsBusiness" value="false" class="form-check" hidden/> <label>Ofis İsmi:</label> <input type="text" class="form-control" placeholder="Ofis ismini belirtiniz" data-val="true" data-val-length="Bu kısım en az 3 en çok 28 karakter içerebilir!" data-val-length-max="28" data-val-length-min="3" data-val-required="Bu kısım boş geçilemez!" id="Offices_' + index + '__Name" maxlength="28" name="Offices[' + index + '].Name" value=""> <br /> <input type="button" value="Kaldır" onclick="RemoveOffice(' + index.toString() + ')" class="btn btn-block btn-secondary col-3" /></li>')
+        }
+
+        function RemoveOffice(liID) {
+            $("#" + liID.toString() + "_li").attr("hidden", "hidden");
+        }
+
+        $('#ConfirmDelete').click(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/Admin/UnitDelete",
+                    data: { 'id': id },
+                    success: function (isDeleted) {
+                        if (isDeleted) {
+                            toastr.success('Birim başarıyla silindi.');
+                            setTimeout(document.location.reload(), 60000);
+                        }
+                        else {
+                            toastr.warning(@ViewBag.ErrorMessage);
+                        }
+                    }
+                })
+            }
+        )
+
+        $("#CheckUnitExist").click(function () {
+            var unitName = $('#Name').val();
+            var i = 0;
+            $("#OfficesList").children().each(function () {
+                if ($(this).attr("hidden") != "hidden") {
+                    var officeId = $(this).attr('id');
+                    var officeName = $("#Offices_" + i.toString() + "__Name").val();
+                    $.ajax({
+                        type: "post",
+                        url: "/Admin/RemainingOffices",
+                        data: { 'id': officeId, 'name': officeName }
+                    })
+                }
+                else {
+                    var officeName = $("#Offices_" + i.toString() + "__Name").val();
+                    $.ajax({
+                        type: "post",
+                        url: "/Admin/RemovedOfficeNames",
+                        data: { 'name': officeName }
+                    })
+                }
+                i++;
+            }
+            )
+
+            $.ajax({
+                type: "post",
+                url: "/Admin/ControlUnitExist",
+                data: { 'unitName': unitName},
+                success: function (isExist) {
+                    if (isExist) {
+                        toastr.error("Bu kriterlere sahip bir birim zaten mevcut!");
+                    }
+                    else {
+                        $("#form").submit();
+                        $("#form").trigger("reset");
+                        toastr.success('İşlem başarıyla gerçekleştirildi.');
+                    }
+                }
+            })
+        }
+        )
+    </script>
+}

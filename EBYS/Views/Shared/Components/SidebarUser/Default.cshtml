@@ -1,0 +1,17 @@
+﻿@model Entities.Concrete.Staff
+
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+        <img src="~/files/user/images/@Model.ProfileImage" class="img-circle elevation-2">
+    </div>
+    <div class="info">
+        @if (Model.Id == 1)
+        {
+            <a href="#" class="d-block">@Model.Name @Model.LastName</a>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Profile" class="d-block">@Model.Name @Model.LastName</a>
+        }
+    </div>
+</div>

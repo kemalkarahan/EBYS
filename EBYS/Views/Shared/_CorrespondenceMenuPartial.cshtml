@@ -1,0 +1,46 @@
+﻿<div class="col-md-3">
+    @if (ViewBag.IsCompose)
+    {
+        <a asp-controller="Correspondence" asp-action="Inbox" class="btn btn-primary btn-block mb-3 text-white">Gelen Kutusuna Geri Dön</a>
+    }
+    else
+    {
+        <a asp-controller="Correspondence" asp-action="Compose" class="btn btn-primary btn-block mb-3 text-white">Yeni E-Yazışma Oluştur</a>
+    }
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Klasörler</h3>
+        </div>
+        <div class="card-body p-0">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item active">
+                    <a asp-controller="Correspondence" asp-action="Inbox" class="nav-link">
+                        <i class="fas fa-inbox"></i> Gelen Yazılar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Sent" class="nav-link">
+                        <i class="fa fa-paper-plane"></i> Gönderilen Yazılar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Draft" class="nav-link">
+                        <i class="far fa-file-alt"></i> Taslaklar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Trash" class="nav-link">
+                        <i class="far fa-trash-alt"></i> Çöp Kutusu
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Email" class="nav-link">
+                        <i class="far fa-envelope"></i> E-Posta Gönder
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.card-body -->
+    </div>
+</div>
+<!-- /.col -->

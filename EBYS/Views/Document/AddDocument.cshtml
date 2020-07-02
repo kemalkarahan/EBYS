@@ -1,0 +1,221 @@
+﻿@model Entities.ViewModels.AddNewDocumentViewModel
+
+@{
+    ViewData["Title"] = "Yeni Evrak Ekle";
+}
+<form asp-controller="Document" asp-action="AddDocument" enctype="multipart/form-data" method="post">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-10">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                            <li class="pt-2 px-3"><h3 class="card-title">Yeni Evrak Ekle</h3></li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">İçerik</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">İlişkili Evraklar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Ekler</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-two-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10  custom-file">
+                                        <input asp-for="Document" type="file" accept='.docx, .doc, .pdf, .odt' class="custom-file-input">
+                                        <label class="custom-file-label" for="customFile">Evrak Seç</label>
+                                        <span style="color:red; font-size:12px;" asp-validation-for="Document" class="error"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Sistemde Yüklü Evraklardan Seç</h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Multiple</label>
+                                                        <select asp-for="RelatedExistedDocument" class="duallistbox" multiple="multiple">
+                                                            @await Component.InvokeAsync("AddDocument");
+                                                        </select>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+
+                                        </div>
+                                        <!-- /.card-footer-->
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Bilgisayarımdan Seç ve Ekle</h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="form-group col-sm-10  custom-file">
+                                                    <input asp-for="RelatedNewDocuments" type="file" accept='.docx, .doc, .pdf, .odt' class="custom-file-input" id="customFile" multiple="multiple">
+                                                    <label class="custom-file-label" for="customFile">Evrak Seç</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+
+                                        </div>
+                                        <!-- /.card-footer-->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Sistemde Yüklü Evraklardan Seç</h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Multiple</label>
+                                                        <select asp-for="AttachedExistedDocuments" class="duallistbox" multiple="multiple">
+                                                            @await Component.InvokeAsync("AddDocument");
+                                                        </select>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+
+                                        </div>
+                                        <!-- /.card-footer-->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Bilgisayarımdan Seç ve Ekle</h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="form-group col-sm-10  custom-file">
+                                                    <input asp-for="AttachedNewDocuments" type="file" accept='.docx, .doc, .pdf, .odt' class="custom-file-input" id="customFile" multiple="multiple">
+                                                    <label class="custom-file-label" for="customFile">Evrak Seç</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+
+                                        </div>
+                                        <!-- /.card-footer-->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group row">
+                                <div class="offset-sm-2 col-sm-10">
+                                    <button type="submit" class="btn btn-danger float-sm-right">Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+</form>
+
+@section StyleSheet{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/theme/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="~/theme/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+}
+
+@section Scripts{
+    <script src="~/theme/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/theme/plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="~/theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- page script -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            //Bootstrap Duallistbox
+            $('.duallistbox').bootstrapDualListbox()
+
+        })
+    </script>
+}

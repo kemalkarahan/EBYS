@@ -1,0 +1,148 @@
+﻿@model Entities.ViewModels.ProfileEditViewModel
+@{
+    ViewData["Title"] = "Kişisel Sayfam";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                    <div class="text-center">
+                        <img class="profile-user-img img-fluid img-circle"
+                             src="~/files/user/images/@Model.Staff.ProfileImage"
+                             alt="User profile picture">
+                    </div>
+                    <h3 class="profile-username text-center">@Html.DisplayFor(model => model.Staff.Name) @Html.DisplayFor(model => model.Staff.LastName)</h3>
+
+                    <p class="text-muted text-center">@Html.DisplayFor(model => model.Staff.Title)</p>
+
+                    <ul class="list-group list-group-unbordered mb-3">
+                        <li class="list-group-item">
+                            <b>@Html.DisplayNameFor(model => model.Staff.UnitId)</b> <a class="float-right">@Html.DisplayFor(model => model.Staff.Unit.Name)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Amir</b> <a class="float-right">@Html.DisplayFor(model => model.Manager.Name) @Html.DisplayFor(model => model.Manager.LastName)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Amir @Html.DisplayNameFor(model => model.Manager.UnitId)</b> <a class="float-right">@Html.DisplayFor(model => model.Manager.Unit.Name)</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <!-- About Me Box -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Hakkımda</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <strong><i class="fas fa-book mr-1"></i> @Html.DisplayNameFor(model => model.Education)</strong>
+
+                    <p class="text-muted">
+                        @Html.DisplayFor(model => model.Education)
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="fas fa-pencil-alt mr-1"></i> @Html.DisplayNameFor(model => model.Skills)</strong>
+
+                    <p class="text-muted">
+                        <span class="tag tag-info">@Html.DisplayFor(model => model.Skills)</span>
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="far fa-file-alt mr-1"></i> @Html.DisplayNameFor(model => model.Notes)</strong>
+
+                    <p class="text-muted">@Html.DisplayFor(model => model.Notes)</p>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active" href="#accountsettings" data-toggle="tab">Hesap Ayarları</a></li>
+                    </ul>
+                </div><!-- /.card-header -->
+                <div style="display:block;" class="card-body">
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="accountsettings">
+                            <form asp-controller="Account" asp-action="Profile" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                <div class="form-group row">
+                                    <label asp-for="ProfileImage" class="col-sm-2 col-form-label"></label>
+                                    <div class="form-group col-sm-10  custom-file">
+                                        <input asp-for="ProfileImage" type="file" accept='image/jpeg' class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Resim seç</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="DateOfBirth" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <input type="date" asp-for="DateOfBirth" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Gender" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <select asp-for="Gender" class="form-control">
+                                            <option>Erkek</option>
+                                            <option>Kadın</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Education" for="inputSkills" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <textarea asp-for="Education" class="form-control" id="inputExperience" placeholder="Eğitim bilgilerinizi buraya giriniz." maxlength="512"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Skills" for="inputSkills" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <textarea asp-for="Skills" class="form-control" id="inputExperience" placeholder="Becerilerinizi buraya giriniz." maxlength="512"></textarea>
+                                        <span asp-validation-for="Skills"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Notes" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <textarea asp-for="Notes" class="form-control" id="inputExperience" placeholder="Açıklamalarınızı buraya giriniz." maxlength="512"></textarea>
+                                        <span asp-validation-for="Notes"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-sm-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger">Kaydet</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div><!-- /.container-fluid -->
+
+@section Scripts{
+    <script src="~/theme/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+}

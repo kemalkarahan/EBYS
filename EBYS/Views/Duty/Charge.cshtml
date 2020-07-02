@@ -1,0 +1,138 @@
+﻿@model Entities.ViewModels.ChargeTaskViewModel
+
+@{
+    ViewData["Title"] = "Yeni Görev Oluştur";
+}
+
+<div class="row">
+    <form asp-controller="Duty" asp-action="Charge" method="post">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Yeni Görev Oluştur</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Muhattap(lar):</label>
+                        <select asp-for="To" class="duallistbox" multiple="multiple" required>
+                            @foreach (Entities.Concrete.Staff staff in Model.Staffs)
+                            {
+                                <option value="@staff.Id">@staff.Name @staff.LastName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="To" style="color:red; font-size:12px;" class="error"></span>
+                    </div>
+                    <!-- /.form group -->
+                    <div class="form-group">
+                        <label asp-for="TaskName"></label><span>:</span>
+                        <input type="text" asp-for="TaskName" class="form-control" placeholder="Görev Başlığı:">
+                    </div>
+                    <!-- /.form group -->
+                    <div class="form-group">
+                        <label>Tarih aralığı:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input type="datetime" asp-for="StartDate" hidden />
+                            <input type="datetime" asp-for="EndDate" hidden />
+                            <input type="text" class="form-control float-right" id="reservation">
+                        </div>
+                    </div>
+                    <!-- /.form group -->
+                    <div class="form-group">
+                        <label asp-for="TaskType"></label><span>:</span>
+                        <select asp-for="TaskType" required>
+                            <option value="Evrak İmzalam Görevleri">Evrak İmzalam Görevleri</option>
+                            <option value="Gelen Evrak Güncelleme Görevleri">Gelen Evrak Güncelleme Görevleri</option>
+                            <option value="Giden Evrak Bildirimi">Giden Evrak Bildirimi</option>
+                            <option value="Giden Evrak Güncelleme Görevleri">Giden Evrak Güncelleme Görevleri</option>
+                            <option value="Görev Bildirimleri" selected>Görev Bildirimleri</option>
+                            <option value="İptal/Ret Bildirimleri">İptal/Ret Bildirimleri</option>
+                        </select>
+                        <span asp-validation-for="TaskType" style="color:red; font-size:12px;" class="error"></span>
+                    </div>
+                    <!-- /.form group -->
+                    <div class="form-group">
+                        <label asp-for="Category"></label><span>:</span>
+                        <select asp-for="Category" required>
+                            <option value="Yüksek">Yüksek</option>
+                            <option value="Normal" selected>Normal</option>
+                            <option value="Düşük">Düşük</option>
+                        </select>
+                        <span asp-validation-for="Category" style="color:red; font-size:12px;" class="error"></span>
+                    </div>
+                    <!-- /.form group -->
+                    <div class="form-group">
+                        <label asp-for="TaskDescription"></label><span>:</span>
+                        <textarea asp-for="TaskDescription" class="form-control" cols="50" rows="10" placeholder="Görev açıklaması">
+                        </textarea>
+                    </div>
+                    <!-- /.form group -->
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="submit" class="btn btn-primary">Oluştur</button>
+                    </div>
+                    <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Temizle</button>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </form>
+</div>
+
+@section StyleSheet{
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/theme/plugins/daterangepicker/daterangepicker.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/theme/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="~/theme/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/theme/plugins/summernote/summernote-bs4.css">
+}
+@section Scripts{
+    <!-- InputMask -->
+    <script src="~/theme/plugins/moment/moment.min.js"></script>
+    <script src="~/theme/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/theme/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script src="~/theme/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/theme/plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="~/theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/theme/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- Page Script -->
+    <script>
+        $(function () {
+            $('#reservation').daterangepicker({},
+                function (start, end) {
+                    $('#StartDate').val(start.format('DD-MM-YYYY'))
+                    $('#EndDate').val(end.format('DD-MM-YYYY'))
+                })
+        })
+        $(function () {
+            //Add text editor
+            $('#TaskDescription').summernote()
+        })
+        $(function () {
+            //Bootstrap Duallistbox
+            $('.duallistbox').bootstrapDualListbox()
+        })
+    </script>
+}

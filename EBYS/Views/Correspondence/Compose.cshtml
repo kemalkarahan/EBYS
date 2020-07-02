@@ -1,0 +1,109 @@
+﻿@model Entities.ViewModels.CorrespondenceViewModel
+@{
+    ViewData["Title"] = "E-Yazışma";
+}
+<div class="row">
+    <partial name="_CorrespondenceMenuPartial" />
+    <form asp-controller="Correspondence" asp-action="Compose" method="post">
+        <div class="col-md">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Yeni E-Yazışma Oluştur</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Alıcı:</label>
+                        <select asp-for="ToList" class="duallistbox" multiple="multiple" required>
+                            @foreach (Entities.Concrete.Staff staff in Model.Staffs)
+                            {
+                                <option value="@staff.Id">@staff.Name @staff.LastName</option>
+                            }
+                        </select>
+                        <span asp-validation-for="ToList" style="color:red; font-size:12px;" class="error"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Title" class="form-control" placeholder="Başlık:">
+                    </div>
+                    <div class="form-group">
+                        <textarea asp-for="Context" class="form-control" cols="50" rows="10">
+                </textarea>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button id="draft" type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Taslak</button>
+                        <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i>Gönder</button>
+                    </div>
+                    <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Temizle</button>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </form>
+</div>
+
+@section StyleSheet{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/theme/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="~/theme/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/theme/plugins/summernote/summernote-bs4.css">
+}
+@section Scripts{
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script src="~/theme/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/theme/plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="~/theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/theme/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- Page Script -->
+    <script>
+
+        $("#draft").click(function () {
+            var context = $('#Context').val();
+            var title = $('#Title').val();
+            $.ajax({
+                type: "post",
+                url: "/Correspondence/Draft",
+                data: { 'context': context, 'title': title },
+                success: function (IsSuccess) {
+                    if (IsSuccess) {
+                        toastr.success('Taslak başarıyla oluşturuldu.');
+                    }
+                    else {
+                        toastr.warning("İşlem gerçekleşirken bir hata oluştu. Daha sonra tekrar deneyiniz.");
+                    }
+                }
+            })
+        })
+        $(function () {
+            //Add text editor
+            $('#Context').summernote()
+        })
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            //Bootstrap Duallistbox
+            $('.duallistbox').bootstrapDualListbox()
+
+        })
+    </script>
+}
+

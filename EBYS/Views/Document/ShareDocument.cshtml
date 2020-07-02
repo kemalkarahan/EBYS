@@ -1,0 +1,101 @@
+﻿@model Entities.ViewModels.ShareDocumentViewModel
+
+@{
+    ViewData["Title"] = "Evrak Paylaş";
+}
+
+<form asp-controller="Document" asp-action="ShareDocument" enctype="multipart/form-data" method="post">
+    <div class="card-body">
+        <div class="row">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="form-group col-sm-10  custom-file">
+                    <input asp-for="DocumentId" type="number" hidden/>
+                    <input type="file" class="custom-file-input" disabled/>
+                    <label class="custom-file-label" for="customFile">@Model.DocumentName</label>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.card-body -->
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Çoklu seçim listesi</label>
+                    <select asp-for="SendingList" class="duallistbox" multiple="multiple" required>
+                        @foreach (Entities.Concrete.Staff staff in Model.Staffs)
+                        {
+                            <option value="@staff.Nickname">@staff.Name @staff.LastName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="SendingList" style="color:red; font-size:12px;" class="error"></span>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="col-12 col-sm-12">
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger float-sm-right">Paylaş</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.card-body -->
+</form>
+
+@section StyleSheet{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/theme/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="~/theme/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+}
+
+@section Scripts{
+    <script src="~/theme/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/theme/plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="~/theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- page script -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            //Bootstrap Duallistbox
+            $('.duallistbox').bootstrapDualListbox()
+
+        })
+    </script>
+}

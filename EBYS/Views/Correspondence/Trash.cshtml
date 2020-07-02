@@ -1,0 +1,208 @@
+﻿@model Entities.ViewModels.CorrespondenceReadViewModel
+@{
+    ViewData["Title"] = "Çöp Kutusu";
+}
+
+<div class="row">
+    <partial name="_CorrespondenceMenuPartial" />
+    <div class="col-md-9">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Çöp Kutusu</h3>
+
+                <div class="card-tools">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="Search Mail">
+                        <div class="input-group-append">
+                            <div class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-tools -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="mailbox-controls">
+                    <!-- Check all button -->
+                    <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                        <i class="far fa-square"></i>
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm trash-button"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                    <!-- /.btn-group -->
+                </div>
+                <div class="table-responsive mailbox-messages direct-chat-messages">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <td class="mailbox-subject">Seç</td>
+                                <td class="mailbox-subject">Başlık</td>
+                                <td class="mailbox-name">Gönderici</td>
+                                <td class="mailbox-name">Alıcı</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Entities.Concrete.Correspondence correspondence in Model.Correspondences)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="icheck-primary">
+                                            <input type="checkbox" value="" id="check_@correspondence.Id">
+                                            <label for="check_@correspondence.Id"></label>
+                                        </div>
+                                    </td>
+                                    <td class="mailbox-subject">
+                                        <a asp-controller="Correspondence" asp-action="Trash" asp-route-id="@correspondence.Id"><b>@correspondence.Title</b></a>
+                                    </td>
+                                    <td class="mailbox-name">@correspondence.From.Name @correspondence.From.LastName</td>
+                                    <td class="mailbox-name">
+                                        @foreach (Entities.Concrete.Staff staff in correspondence.To)
+                                        {
+                                            <label>@staff.Name @staff.LastName</label><br />
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="mailbox-subject">Seç</td>
+                                <td class="mailbox-subject">Başlık</td>
+                                <td class="mailbox-name">Gönderici</td>
+                                <td class="mailbox-name">Alıcı</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <!-- /.table -->
+                </div>
+                <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer p-0">
+                <div class="mailbox-controls">
+                    <!-- Check all button -->
+                    <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                        <i class="far fa-square"></i>
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm trash-button"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                    <!-- /.btn-group -->
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@if (Model.Correspondence != null)
+{
+    <input id="Id" name="Id" type="number" value="@Model.Correspondence.Id" hidden />
+    <div class="row">
+        <div class="col-md-3"></div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title"><b>@Model.Correspondence.Title</b></h3>
+
+                    <div class="card-tools">
+                        <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Previous"><i class="fas fa-chevron-left"></i></a>
+                        <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Next"><i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="mailbox-read-info">
+                        <h6>
+                            Gönderici: <label>@Model.Correspondence.From.Name @Model.Correspondence.From.LastName</label>
+                            <br />
+                            Alıcı: @foreach (Entities.Concrete.Staff staff in Model.Correspondence.To)
+                            {
+                                <label>@staff.Name @staff.LastName<span>;</span></label>
+                            }
+                            <span class="mailbox-read-time float-right">@Model.Correspondence.SentAt.ToString("F")</span>
+                        </h6>
+                    </div>
+                    <!-- /.mailbox-read-info -->
+                    <div class="mailbox-read-message">
+                        @Html.Raw(Model.Correspondence.Context)
+                    </div>
+                    <!-- /.mailbox-read-message -->
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn btn-default reply-button"><i class="fas fa-reply"></i> Cevapla</button>
+                        <button type="button" class="btn btn-default forward-button"><i class="fas fa-share"></i> İlet</button>
+                    </div>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+}
+
+@section Scripts{
+    <!-- Page Script -->
+    <script>
+        $('.reply-button').click(function () {
+            var id = $('#Id').val();
+            $.ajax({
+                type: "post",
+                url: "/Correspondence/ReplyOrForward",
+                data: { 'id': id, 'IsReply': true }
+            })
+        })
+
+        $('.forward-button').click(function () {
+            var id = $('#Id').val();
+            $.ajax({
+                type: "post",
+                url: "/Correspondence/ReplyOrForward",
+                data: { 'id': id, 'IsReply': false }
+            })
+        })
+
+        $(function () {
+            //Enable check and uncheck all functionality
+            $('.checkbox-toggle').click(function () {
+                var clicks = $(this).data('clicks')
+                if (clicks) {
+                    //Uncheck all checkboxes
+                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', false)
+                    $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+                } else {
+                    //Check all checkboxes
+                    $('.mailbox-messages input[type=\'checkbox\']').prop('checked', true)
+                    $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+                }
+                $(this).data('clicks', !clicks)
+            })
+
+            $('.trash-button').click(function () {
+                $('input[type="checkbox"]').each(function () {
+                    if (this.checked) {
+                        var id = $(this).attr("id").substr(6)
+                        $.ajax({
+                            type: "post",
+                            url: "/Correspondence/DeleteCorrespondence",
+                            data: { 'id': id },
+                            success: function () {
+                                location.reload()
+                            }
+                        })
+                    }
+                })
+            })
+        })</script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/theme/dist/js/demo.js"></script>
+}
+

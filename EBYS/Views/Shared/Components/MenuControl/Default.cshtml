@@ -1,0 +1,95 @@
+﻿<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-fw fa-file"></i>
+                <p>
+                    Evraklar
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Document" asp-action="Index" class="nav-link">
+                        <i class="nav-icon fa fa-fw fa-list"></i>
+                        <p>Evrak Listesi</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Document" asp-action="AddDocument" class="nav-link">
+                        <i class="nav-icon fa fa-fw fa-plus-square"></i>
+                        <p>+ Yeni Evrak Ekle</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-fw fa-calendar"></i>
+                <p>
+                    Görevler
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Duty" asp-action="Charge" class="nav-link">
+                        <i class="nav-icon fa fa-fw fa-calendar-plus"></i>
+                        <p>+ Yeni Görev Oluştur</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Duty" asp-action="Charged" class="nav-link">
+                        <i class="nav-icon fa fa-fw fa-calendar-check"></i>
+                        <p>Tanımlanan Görevler</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-fw fa-envelope"></i>
+                <p>
+                    Yazışmalar
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Compose" class="nav-link">
+                        <i class="nav-icon fas fa-pencil-alt"></i>
+                        <p>+ Yeni E-Yazışma Oluştur</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Inbox" class="nav-link">
+                        <i class="nav-icon fa fa-fw fa-inbox"></i>
+                        <p>Gelen Yazılar</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Sent" class="nav-link">
+                        <i class="nav-icon fa fa-fw fa-paper-plane"></i>
+                        <p>Gönderilen Yazılar</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Draft" class="nav-link">
+                        <i class="nav-icon far fa-file-alt"></i> Taslaklar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Trash" class="nav-link">
+                        <i class="nav-icon far fa-trash-alt"></i>
+                        <p>Çöp Kutusu</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Correspondence" asp-action="Email" class="nav-link">
+                        <i class="nav-icon far fa-envelope"></i> E-Posta Gönder
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

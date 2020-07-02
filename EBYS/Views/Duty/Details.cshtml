@@ -1,0 +1,124 @@
+﻿@model Entities.Concrete.Duty
+@{
+    ViewData["Title"] = "Görev Detayı";
+}
+
+<div class="row">
+    <input id="Id" type="number" value="@Model.Id" hidden/>
+    <div class="col-md-12">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Görev Detayı</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Gorevi Başlığı:</label>
+                    </div>
+                    <div class="col-sm">
+                        <label>@Model.TaskName</label>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Gorevi Tanımlayan:</label>
+                    </div>
+                    <div class="col-sm">
+                        <label>@Model.From.Name @Model.From.LastName</label>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Görev Tanımı:</label>
+                    </div>
+                    <div class="col-sm">
+                        <label>@Model.TaskType</label>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Önem Dercesi:</label>
+                    </div>
+                    <div class="col-sm">
+                        <label>@Model.Category</label>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Zaman Aralığı:</label>
+                    </div>
+                    <div class="col-sm">
+                        <label>@Model.StartDate.ToString("dd/MM/yyyy") - @Model.EndDate.ToString("dd/MM/yyyy")</label>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Görev Açıklaması:</label>
+                    </div>
+                    <div class="col-sm">
+                        @Html.Raw(Model.TaskDescription)
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-sm-1">
+                        <button id="CompleteDuty" type="button" class="btn btn-success float-sm-right">Tamalandı olarak bildir</button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button id="CancelDuty" type="button" class="btn btn-danger float-sm-right">İptal et</button>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section StyleSheet{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+
+}
+@section Scripts{
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script src="~/theme/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+    <!-- Page Script -->
+    <script>
+        $(function () {
+            $('#CompleteDuty').click(function () {
+                var id = $('#Id').val();
+                $.ajax({
+                    type: "post",
+                    url: "/Duty/CompleteDuty",
+                    data: { 'id': id },
+                    success: function () {
+                        window.location.href = '@Url.Action("Charged", "Duty")';
+                    }
+                })
+            })
+
+            $('#CancelDuty').click(function () {
+                var id = $('#Id').val();
+                $.ajax({
+                    type: "post",
+                    url: "/Duty/CancelDuty",
+                    data: { 'id': id },
+                    success: function () {
+                        window.location.href = '@Url.Action("Charged", "Duty")';
+                    }
+                })
+            })
+        })
+    </script>
+}

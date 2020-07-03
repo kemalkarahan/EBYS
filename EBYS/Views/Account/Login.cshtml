@@ -14,7 +14,7 @@
             <div class="col">
                 @ViewBag.Domain
             </div>
-        </div>        
+        </div>
         <span class="error" style="color:red; font-size:12px;" asp-validation-for="Nickname"></span>
     </div>
 
@@ -33,3 +33,21 @@
 <p class="mb-1">
     <a asp-action="ForgetPassword">Şifremi unuttum</a>
 </p>
+
+@section StyleSheet{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var nickname = $.trim($("#Nickname").val())
+            if (nickname.length > 0) {
+                toastr.error("Kullanıcı adı ve/veya şifre hatalı! Lütfen girdiğiniz bilgileri kontrol ediniz!");
+            }
+        });
+    </script>
+}

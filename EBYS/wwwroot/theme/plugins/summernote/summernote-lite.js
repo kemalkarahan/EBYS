@@ -9128,7 +9128,7 @@ function () {
         body: this.createShortcutList(),
         footer: body,
         callback: function callback($node) {
-          $node.find('.moBusiness-body,.note-moBusiness-body').css({
+          $node.find('.modal-body,.note-modal-body').css({
             'max-height': 300,
             'overflow': 'scroll'
           });
@@ -10127,37 +10127,37 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(docum
   external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(e.target).closest('.note-dropdown-menu').parent().find('.note-btn.active').removeClass('active');
 });
 /* harmony default export */ var ui_DropdownUI = (DropdownUI_DropdownUI);
-// CONCATENATED MODULE: ./src/js/lite/ui/MoBusinessUI.js
-function MoBusinessUI_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+// CONCATENATED MODULE: ./src/js/lite/ui/modalUI.js
+function modalUI_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function MoBusinessUI_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function modalUI_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function MoBusinessUI_createClass(Constructor, protoProps, staticProps) { if (protoProps) MoBusinessUI_defineProperties(Constructor.prototype, protoProps); if (staticProps) MoBusinessUI_defineProperties(Constructor, staticProps); return Constructor; }
+function modalUI_createClass(Constructor, protoProps, staticProps) { if (protoProps) modalUI_defineProperties(Constructor.prototype, protoProps); if (staticProps) modalUI_defineProperties(Constructor, staticProps); return Constructor; }
 
 
 
-var MoBusinessUI_MoBusinessUI =
+var modalUI_modalUI =
 /*#__PURE__*/
 function () {
-  function MoBusinessUI($node
+  function modalUI($node
   /*, options */
   ) {
-    MoBusinessUI_classCallCheck(this, MoBusinessUI);
+    modalUI_classCallCheck(this, modalUI);
 
-    this.$moBusiness = $node;
-    this.$backdrop = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div class="note-moBusiness-backdrop"/>');
+    this.$modal = $node;
+    this.$backdrop = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<div class="note-modal-backdrop"/>');
   }
 
-  MoBusinessUI_createClass(MoBusinessUI, [{
+  modalUI_createClass(modalUI, [{
     key: "show",
     value: function show() {
       var _this = this;
 
       this.$backdrop.appendTo(document.body).show();
-      this.$moBusiness.addClass('open').show();
-      this.$moBusiness.trigger('note.moBusiness.show');
-      this.$moBusiness.off('click', '.close').on('click', '.close', this.hide.bind(this));
-      this.$moBusiness.on('keydown', function (event) {
+      this.$modal.addClass('open').show();
+      this.$modal.trigger('note.modal.show');
+      this.$modal.off('click', '.close').on('click', '.close', this.hide.bind(this));
+      this.$modal.on('keydown', function (event) {
         if (event.which === 27) {
           event.preventDefault();
 
@@ -10168,17 +10168,17 @@ function () {
   }, {
     key: "hide",
     value: function hide() {
-      this.$moBusiness.removeClass('open').hide();
+      this.$modal.removeClass('open').hide();
       this.$backdrop.hide();
-      this.$moBusiness.trigger('note.moBusiness.hide');
-      this.$moBusiness.off('keydown');
+      this.$modal.trigger('note.modal.hide');
+      this.$modal.off('keydown');
     }
   }]);
 
-  return MoBusinessUI;
+  return modalUI;
 }();
 
-/* harmony default export */ var ui_MoBusinessUI = (MoBusinessUI_MoBusinessUI);
+/* harmony default export */ var ui_modalUI = (modalUI_modalUI);
 // CONCATENATED MODULE: ./src/js/lite/ui.js
 
 
@@ -10502,7 +10502,7 @@ var ui_colorDropdownButton = function colorDropdownButton(opt, type) {
   }).render();
 };
 
-var dialog = renderer["a" /* default */].create('<div class="note-moBusiness" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
+var dialog = renderer["a" /* default */].create('<div class="note-modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
   if (options.fade) {
     $node.addClass('fade');
   }
@@ -10510,8 +10510,8 @@ var dialog = renderer["a" /* default */].create('<div class="note-moBusiness" ar
   $node.attr({
     'aria-label': options.title
   });
-  $node.html(['<div class="note-moBusiness-content">', options.title ? '<div class="note-moBusiness-header"><button type="button" class="close" aria-label="Close" aria-hidden="true"><i class="note-icon-close"></i></button><h4 class="note-moBusiness-title">' + options.title + '</h4></div>' : '', '<div class="note-moBusiness-body">' + options.body + '</div>', options.footer ? '<div class="note-moBusiness-footer">' + options.footer + '</div>' : '', '</div>'].join(''));
-  $node.data('moBusiness', new ui_MoBusinessUI($node, options));
+  $node.html(['<div class="note-modal-content">', options.title ? '<div class="note-modal-header"><button type="button" class="close" aria-label="Close" aria-hidden="true"><i class="note-icon-close"></i></button><h4 class="note-modal-title">' + options.title + '</h4></div>' : '', '<div class="note-modal-body">' + options.body + '</div>', options.footer ? '<div class="note-modal-footer">' + options.footer + '</div>' : '', '</div>'].join(''));
+  $node.data('modal', new ui_modalUI($node, options));
 });
 
 var videoDialog = function videoDialog(opt) {
@@ -10606,16 +10606,16 @@ var ui = function ui(editorOptions) {
       $dom.find('[data-value="' + value + '"]').addClass('checked');
     },
     onDialogShown: function onDialogShown($dialog, handler) {
-      $dialog.one('note.moBusiness.show', handler);
+      $dialog.one('note.modal.show', handler);
     },
     onDialogHidden: function onDialogHidden($dialog, handler) {
-      $dialog.one('note.moBusiness.hide', handler);
+      $dialog.one('note.modal.hide', handler);
     },
     showDialog: function showDialog($dialog) {
-      $dialog.data('moBusiness').show();
+      $dialog.data('modal').show();
     },
     hideDialog: function hideDialog($dialog) {
-      $dialog.data('moBusiness').hide();
+      $dialog.data('modal').hide();
     },
 
     /**
@@ -10635,7 +10635,7 @@ var ui = function ui(editorOptions) {
      * @returns {*}
      */
     getDialogBody: function getDialogBody($dialog) {
-      return $dialog.find('.note-moBusiness-body');
+      return $dialog.find('.note-modal-body');
     },
     createLayout: function createLayout($note) {
       var $editor = (editorOptions.airMode ? airEditor([editingArea([codable(), airEditable()])]) : editorOptions.toolbarPosition === 'bottom' ? editor([editingArea([codable(), editable()]), toolbar(), statusbar()]) : editor([toolbar(), editingArea([codable(), editable()]), statusbar()])).render();

@@ -205,7 +205,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a data-toggle="moBusiness" data-target="#moBusiness-danger" href="#" onclick="GetStaffId(@item.Id.ToString())">
+                                    <a data-toggle="modal" data-target="#modal-danger" href="#" onclick="GetStaffId(@item.Id.ToString())">
                                         <i class="fa fa-fw fa-trash"></i>
                                         <p>Sil</p>
                                     </a>
@@ -236,28 +236,28 @@
 </div>
 <!-- /.row -->
 
-<div class="moBusiness fade" id="moBusiness-danger">
-    <div class="moBusiness-dialog">
-        <div class="moBusiness-content bg-danger">
-            <div class="moBusiness-header">
-                <h4 class="moBusiness-title">Uyarı!</h4>
-                <button type="button" class="close" data-dismiss="moBusiness" aria-label="Close">
+<div class="modal fade" id="modal-danger">
+    <div class="modal-dialog">
+        <div class="modal-content bg-danger">
+            <div class="modal-header">
+                <h4 class="modal-title">Uyarı!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="moBusiness-body">
+            <div class="modal-body">
                 <p>Seçili personel ve ona ait tüm bilgiler silinecektir. Onaylıyor musunuz?</p>
             </div>
-            <div class="moBusiness-footer justify-content-between">
-                <button type="button" class="btn btn-outline-light" data-dismiss="moBusiness">İptal et</button>
-                <button id="ConfirmDelete" type="button" class="btn btn-outline-light" data-dismiss="moBusiness">Onayla</button>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">İptal et</button>
+                <button id="ConfirmDelete" type="button" class="btn btn-outline-light" data-dismiss="modal">Onayla</button>
             </div>
         </div>
-        <!-- /.moBusiness-content -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.moBusiness-dialog -->
+    <!-- /.modal-dialog -->
 </div>
-<!-- /.moBusiness -->
+<!-- /.modal -->
 
 
 

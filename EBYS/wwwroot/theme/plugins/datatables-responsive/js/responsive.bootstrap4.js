@@ -37,44 +37,44 @@ var DataTable = $.fn.dataTable;
 
 
 var _display = DataTable.Responsive.display;
-var _original = _display.moBusiness;
-var _moBusiness = $(
-	'<div class="moBusiness fade dtr-bs-moBusiness" role="dialog">'+
-		'<div class="moBusiness-dialog" role="document">'+
-			'<div class="moBusiness-content">'+
-				'<div class="moBusiness-header">'+
-					'<button type="button" class="close" data-dismiss="moBusiness" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+var _original = _display.modal;
+var _modal = $(
+	'<div class="modal fade dtr-bs-modal" role="dialog">'+
+		'<div class="modal-dialog" role="document">'+
+			'<div class="modal-content">'+
+				'<div class="modal-header">'+
+					'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
 				'</div>'+
-				'<div class="moBusiness-body"/>'+
+				'<div class="modal-body"/>'+
 			'</div>'+
 		'</div>'+
 	'</div>'
 );
 
-_display.moBusiness = function ( options ) {
+_display.modal = function ( options ) {
 	return function ( row, update, render ) {
-		if ( ! $.fn.moBusiness ) {
+		if ( ! $.fn.modal ) {
 			_original( row, update, render );
 		}
 		else {
 			if ( ! update ) {
 				if ( options && options.header ) {
-					var header = _moBusiness.find('div.moBusiness-header');
+					var header = _modal.find('div.modal-header');
 					var button = header.find('button').detach();
 					
 					header
 						.empty()
-						.append( '<h4 class="moBusiness-title">'+options.header( row )+'</h4>' )
+						.append( '<h4 class="modal-title">'+options.header( row )+'</h4>' )
 						.append( button );
 				}
 
-				_moBusiness.find( 'div.moBusiness-body' )
+				_modal.find( 'div.modal-body' )
 					.empty()
 					.append( render() );
 
-				_moBusiness
+				_modal
 					.appendTo( 'body' )
-					.moBusiness();
+					.modal();
 			}
 		}
 	};

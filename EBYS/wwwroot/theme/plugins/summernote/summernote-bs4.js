@@ -9128,7 +9128,7 @@ function () {
         body: this.createShortcutList(),
         footer: body,
         callback: function callback($node) {
-          $node.find('.moBusiness-body,.note-moBusiness-body').css({
+          $node.find('.modal-body,.note-modal-body').css({
             'max-height': 300,
             'overflow': 'scroll'
           });
@@ -9975,7 +9975,7 @@ var dropdownCheck = renderer["a" /* default */].create('<div class="note-dropdow
     'aria-label': options.title
   });
 });
-var dialog = renderer["a" /* default */].create('<div class="moBusiness note-moBusiness" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
+var dialog = renderer["a" /* default */].create('<div class="modal note-modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
   if (options.fade) {
     $node.addClass('fade');
   }
@@ -9983,7 +9983,7 @@ var dialog = renderer["a" /* default */].create('<div class="moBusiness note-moB
   $node.attr({
     'aria-label': options.title
   });
-  $node.html(['<div class="moBusiness-dialog">', '<div class="moBusiness-content">', options.title ? '<div class="moBusiness-header">' + '<h4 class="moBusiness-title">' + options.title + '</h4>' + '<button type="button" class="close" data-dismiss="moBusiness" aria-label="Close" aria-hidden="true">&times;</button>' + '</div>' : '', '<div class="moBusiness-body">' + options.body + '</div>', options.footer ? '<div class="moBusiness-footer">' + options.footer + '</div>' : '', '</div>', '</div>'].join(''));
+  $node.html(['<div class="modal-dialog">', '<div class="modal-content">', options.title ? '<div class="modal-header">' + '<h4 class="modal-title">' + options.title + '</h4>' + '<button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' + '</div>' : '', '<div class="modal-body">' + options.body + '</div>', options.footer ? '<div class="modal-footer">' + options.footer + '</div>' : '', '</div>', '</div>'].join(''));
 });
 var popover = renderer["a" /* default */].create(['<div class="note-popover popover in">', '<div class="arrow"/>', '<div class="popover-content note-children-container"/>', '</div>'].join(''), function ($node, options) {
   var direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
@@ -10075,16 +10075,16 @@ var ui_ui = function ui(editorOptions) {
       $btn.toggleClass('active', isActive);
     },
     onDialogShown: function onDialogShown($dialog, handler) {
-      $dialog.one('shown.bs.moBusiness', handler);
+      $dialog.one('shown.bs.modal', handler);
     },
     onDialogHidden: function onDialogHidden($dialog, handler) {
-      $dialog.one('hidden.bs.moBusiness', handler);
+      $dialog.one('hidden.bs.modal', handler);
     },
     showDialog: function showDialog($dialog) {
-      $dialog.moBusiness('show');
+      $dialog.modal('show');
     },
     hideDialog: function hideDialog($dialog) {
-      $dialog.moBusiness('hide');
+      $dialog.modal('hide');
     },
     createLayout: function createLayout($note) {
       var $editor = (editorOptions.airMode ? airEditor([editingArea([codable(), airEditable()])]) : editorOptions.toolbarPosition === 'bottom' ? editor([editingArea([codable(), editable()]), toolbar(), statusbar()]) : editor([toolbar(), editingArea([codable(), editable()]), statusbar()])).render();

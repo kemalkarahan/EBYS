@@ -195,7 +195,7 @@ return /******/ (function(modules) { // webpackBootstrap
       },
       options: {
         help: 'Aiuto',
-        fullscreen: 'MoBusinessità a tutto schermo',
+        fullscreen: 'modalità a tutto schermo',
         codeview: 'Visualizza codice'
       },
       paragraph: {

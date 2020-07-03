@@ -113,7 +113,7 @@ table.dataTable > tbody > tr.child span.dtr-title {
   font-weight: bold;
 }
 
-div.dtr-moBusiness {
+div.dtr-modal {
   position: fixed;
   box-sizing: border-box;
   top: 0;
@@ -123,7 +123,7 @@ div.dtr-moBusiness {
   z-index: 100;
   padding: 10em 1em;
 }
-div.dtr-moBusiness div.dtr-moBusiness-display {
+div.dtr-modal div.dtr-modal-display {
   position: absolute;
   top: 0;
   left: 0;
@@ -140,11 +140,11 @@ div.dtr-moBusiness div.dtr-moBusiness-display {
   border-radius: 0.5em;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
-div.dtr-moBusiness div.dtr-moBusiness-content {
+div.dtr-modal div.dtr-modal-content {
   position: relative;
   padding: 1em;
 }
-div.dtr-moBusiness div.dtr-moBusiness-close {
+div.dtr-modal div.dtr-modal-close {
   position: absolute;
   top: 6px;
   right: 6px;
@@ -157,10 +157,10 @@ div.dtr-moBusiness div.dtr-moBusiness-close {
   cursor: pointer;
   z-index: 12;
 }
-div.dtr-moBusiness div.dtr-moBusiness-close:hover {
+div.dtr-modal div.dtr-modal-close:hover {
   background-color: #eaeaea;
 }
-div.dtr-moBusiness div.dtr-moBusiness-background {
+div.dtr-modal div.dtr-modal-background {
   position: fixed;
   top: 0;
   left: 0;
@@ -171,10 +171,10 @@ div.dtr-moBusiness div.dtr-moBusiness-background {
 }
 
 @media screen and (max-width: 767px) {
-  div.dtr-moBusiness div.dtr-moBusiness-display {
+  div.dtr-modal div.dtr-modal-display {
     width: 95%;
   }
 }
-div.dtr-bs-moBusiness table.table tr:first-child td {
+div.dtr-bs-modal table.table tr:first-child td {
   border-top: none;
 }

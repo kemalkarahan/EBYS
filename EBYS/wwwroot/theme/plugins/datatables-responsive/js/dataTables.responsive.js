@@ -1063,30 +1063,30 @@ Responsive.display = {
 		}
 	},
 
-	// This is a wrapper so the moBusiness options for Bootstrap and jQuery UI can
+	// This is a wrapper so the modal options for Bootstrap and jQuery UI can
 	// have options passed into them. This specific one doesn't need to be a
-	// function but it is for consistency in the `moBusiness` name
-	moBusiness: function ( options ) {
+	// function but it is for consistency in the `modal` name
+	modal: function ( options ) {
 		return function ( row, update, render ) {
 			if ( ! update ) {
-				// Show a moBusiness
+				// Show a modal
 				var close = function () {
-					moBusiness.remove(); // will tidy events for us
+					modal.remove(); // will tidy events for us
 					$(document).off( 'keypress.dtr' );
 				};
 
-				var moBusiness = $('<div class="dtr-moBusiness"/>')
-					.append( $('<div class="dtr-moBusiness-display"/>')
-						.append( $('<div class="dtr-moBusiness-content"/>')
+				var modal = $('<div class="dtr-modal"/>')
+					.append( $('<div class="dtr-modal-display"/>')
+						.append( $('<div class="dtr-modal-content"/>')
 							.append( render() )
 						)
-						.append( $('<div class="dtr-moBusiness-close">&times;</div>' )
+						.append( $('<div class="dtr-modal-close">&times;</div>' )
 							.click( function () {
 								close();
 							} )
 						)
 					)
-					.append( $('<div class="dtr-moBusiness-background"/>')
+					.append( $('<div class="dtr-modal-background"/>')
 						.click( function () {
 							close();
 						} )
@@ -1102,13 +1102,13 @@ Responsive.display = {
 				} );
 			}
 			else {
-				$('div.dtr-moBusiness-content')
+				$('div.dtr-modal-content')
 					.empty()
 					.append( render() );
 			}
 
 			if ( options && options.header ) {
-				$('div.dtr-moBusiness-content').prepend(
+				$('div.dtr-modal-content').prepend(
 					'<h2>'+options.header( row )+'</h2>'
 				);
 			}

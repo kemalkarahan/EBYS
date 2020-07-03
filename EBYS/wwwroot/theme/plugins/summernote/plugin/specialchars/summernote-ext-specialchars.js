@@ -240,7 +240,7 @@
             }
 
             deferred.resolve(decodeURIComponent($selectedNode.find('button').attr('data-value')));
-            $specialCharDialog.moBusiness('hide');
+            $specialCharDialog.modal('hide');
           }
 
           function keyDownEventHandler(event) {

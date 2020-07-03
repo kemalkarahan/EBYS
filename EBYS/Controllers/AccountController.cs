@@ -70,7 +70,9 @@ namespace EBYS.Controllers
                     HttpContext.Session.SetString("userNickname", login.Nickname);
                     HttpContext.Session.SetString("userPassword", login.Password);
                     if (login.Nickname == admin.Nickname)
+                    {
                         return RedirectToAction("Institution", "Admin");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
             }

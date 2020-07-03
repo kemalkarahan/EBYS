@@ -5946,16 +5946,16 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   padding: 0.75rem;
 }
 
-.moBusiness-open {
+.modal-open {
   overflow: hidden;
 }
 
-.moBusiness-open .moBusiness {
+.modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-.moBusiness {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -5967,14 +5967,14 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   outline: 0;
 }
 
-.moBusiness-dialog {
+.modal-dialog {
   position: relative;
   width: auto;
   margin: 0.5rem;
   pointer-events: none;
 }
 
-.moBusiness.fade .moBusiness-dialog {
+.modal.fade .modal-dialog {
   transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
   transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
@@ -5983,43 +5983,43 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .moBusiness.fade .moBusiness-dialog {
+  .modal.fade .modal-dialog {
     transition: none;
   }
 }
 
-.moBusiness.show .moBusiness-dialog {
+.modal.show .modal-dialog {
   -webkit-transform: none;
   transform: none;
 }
 
-.moBusiness.moBusiness-static .moBusiness-dialog {
+.modal.modal-static .modal-dialog {
   -webkit-transform: scale(1.02);
   transform: scale(1.02);
 }
 
-.moBusiness-dialog-scrollable {
+.modal-dialog-scrollable {
   display: -ms-flexbox;
   display: flex;
   max-height: calc(100% - 1rem);
 }
 
-.moBusiness-dialog-scrollable .moBusiness-content {
+.modal-dialog-scrollable .modal-content {
   max-height: calc(100vh - 1rem);
   overflow: hidden;
 }
 
-.moBusiness-dialog-scrollable .moBusiness-header,
-.moBusiness-dialog-scrollable .moBusiness-footer {
+.modal-dialog-scrollable .modal-header,
+.modal-dialog-scrollable .modal-footer {
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
-.moBusiness-dialog-scrollable .moBusiness-body {
+.modal-dialog-scrollable .modal-body {
   overflow-y: auto;
 }
 
-.moBusiness-dialog-centered {
+.modal-dialog-centered {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -6027,13 +6027,13 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   min-height: calc(100% - 1rem);
 }
 
-.moBusiness-dialog-centered::before {
+.modal-dialog-centered::before {
   display: block;
   height: calc(100vh - 1rem);
   content: "";
 }
 
-.moBusiness-dialog-centered.moBusiness-dialog-scrollable {
+.modal-dialog-centered.modal-dialog-scrollable {
   -ms-flex-direction: column;
   flex-direction: column;
   -ms-flex-pack: center;
@@ -6041,15 +6041,15 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   height: 100%;
 }
 
-.moBusiness-dialog-centered.moBusiness-dialog-scrollable .moBusiness-content {
+.modal-dialog-centered.modal-dialog-scrollable .modal-content {
   max-height: none;
 }
 
-.moBusiness-dialog-centered.moBusiness-dialog-scrollable::before {
+.modal-dialog-centered.modal-dialog-scrollable::before {
   content: none;
 }
 
-.moBusiness-content {
+.modal-content {
   position: relative;
   display: -ms-flexbox;
   display: flex;
@@ -6065,7 +6065,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   outline: 0;
 }
 
-.moBusiness-backdrop {
+.modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -6075,15 +6075,15 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   background-color: #000;
 }
 
-.moBusiness-backdrop.fade {
+.modal-backdrop.fade {
   opacity: 0;
 }
 
-.moBusiness-backdrop.show {
+.modal-backdrop.show {
   opacity: 0.5;
 }
 
-.moBusiness-header {
+.modal-header {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: start;
@@ -6096,24 +6096,24 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   border-top-right-radius: calc(0.3rem - 1px);
 }
 
-.moBusiness-header .close, .moBusiness-header .mailbox-attachment-close {
+.modal-header .close, .modal-header .mailbox-attachment-close {
   padding: 1rem;
   margin: -1rem -1rem -1rem auto;
 }
 
-.moBusiness-title {
+.modal-title {
   margin-bottom: 0;
   line-height: 1.5;
 }
 
-.moBusiness-body {
+.modal-body {
   position: relative;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1rem;
 }
 
-.moBusiness-footer {
+.modal-footer {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -6128,11 +6128,11 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   border-bottom-left-radius: calc(0.3rem - 1px);
 }
 
-.moBusiness-footer > * {
+.modal-footer > * {
   margin: 0.25rem;
 }
 
-.moBusiness-scrollbar-measure {
+.modal-scrollbar-measure {
   position: absolute;
   top: -9999px;
   width: 50px;
@@ -6141,39 +6141,39 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 }
 
 @media (min-width: 576px) {
-  .moBusiness-dialog {
+  .modal-dialog {
     max-width: 500px;
     margin: 1.75rem auto;
   }
-  .moBusiness-dialog-scrollable {
+  .modal-dialog-scrollable {
     max-height: calc(100% - 3.5rem);
   }
-  .moBusiness-dialog-scrollable .moBusiness-content {
+  .modal-dialog-scrollable .modal-content {
     max-height: calc(100vh - 3.5rem);
   }
-  .moBusiness-dialog-centered {
+  .modal-dialog-centered {
     min-height: calc(100% - 3.5rem);
   }
-  .moBusiness-dialog-centered::before {
+  .modal-dialog-centered::before {
     height: calc(100vh - 3.5rem);
   }
-  .moBusiness-content {
+  .modal-content {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   }
-  .moBusiness-sm {
+  .modal-sm {
     max-width: 300px;
   }
 }
 
 @media (min-width: 992px) {
-  .moBusiness-lg,
-  .moBusiness-xl {
+  .modal-lg,
+  .modal-xl {
     max-width: 800px;
   }
 }
 
 @media (min-width: 1200px) {
-  .moBusiness-xl {
+  .modal-xl {
     max-width: 1140px;
   }
 }
@@ -18172,7 +18172,7 @@ html.maximized-card {
   border-left: 0;
 }
 
-.moBusiness-dialog .overlay {
+.modal-dialog .overlay {
   background-color: #000;
   display: block;
   height: 100%;
@@ -18184,12 +18184,12 @@ html.maximized-card {
   z-index: 1052;
 }
 
-.moBusiness-content.bg-warning .moBusiness-header,
-.moBusiness-content.bg-warning .moBusiness-footer {
+.modal-content.bg-warning .modal-header,
+.modal-content.bg-warning .modal-footer {
   border-color: #343a40;
 }
 
-.moBusiness-content.bg-primary .close, .moBusiness-content.bg-primary .mailbox-attachment-close, .moBusiness-content.bg-secondary .close, .moBusiness-content.bg-secondary .mailbox-attachment-close, .moBusiness-content.bg-info .close, .moBusiness-content.bg-info .mailbox-attachment-close, .moBusiness-content.bg-danger .close, .moBusiness-content.bg-danger .mailbox-attachment-close, .moBusiness-content.bg-success .close, .moBusiness-content.bg-success .mailbox-attachment-close {
+.modal-content.bg-primary .close, .modal-content.bg-primary .mailbox-attachment-close, .modal-content.bg-secondary .close, .modal-content.bg-secondary .mailbox-attachment-close, .modal-content.bg-info .close, .modal-content.bg-info .mailbox-attachment-close, .modal-content.bg-danger .close, .modal-content.bg-danger .mailbox-attachment-close, .modal-content.bg-success .close, .modal-content.bg-success .mailbox-attachment-close {
   color: #ffffff;
   text-shadow: 0 1px 0 #000;
 }

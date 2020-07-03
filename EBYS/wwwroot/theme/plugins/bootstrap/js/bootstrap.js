@@ -2115,9 +2115,9 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$5 = 'moBusiness';
+  var NAME$5 = 'modal';
   var VERSION$5 = '4.4.1';
-  var DATA_KEY$5 = 'bs.moBusiness';
+  var DATA_KEY$5 = 'bs.modal';
   var EVENT_KEY$5 = "." + DATA_KEY$5;
   var DATA_API_KEY$5 = '.data-api';
   var JQUERY_NO_CONFLICT$5 = $.fn[NAME$5];
@@ -2150,19 +2150,19 @@
     CLICK_DATA_API: "click" + EVENT_KEY$5 + DATA_API_KEY$5
   };
   var ClassName$5 = {
-    SCROLLABLE: 'moBusiness-dialog-scrollable',
-    SCROLLBAR_MEASURER: 'moBusiness-scrollbar-measure',
-    BACKDROP: 'moBusiness-backdrop',
-    OPEN: 'moBusiness-open',
+    SCROLLABLE: 'modal-dialog-scrollable',
+    SCROLLBAR_MEASURER: 'modal-scrollbar-measure',
+    BACKDROP: 'modal-backdrop',
+    OPEN: 'modal-open',
     FADE: 'fade',
     SHOW: 'show',
-    STATIC: 'moBusiness-static'
+    STATIC: 'modal-static'
   };
   var Selector$5 = {
-    DIALOG: '.moBusiness-dialog',
-    MOBusiness_BODY: '.moBusiness-body',
-    DATA_TOGGLE: '[data-toggle="moBusiness"]',
-    DATA_DISMISS: '[data-dismiss="moBusiness"]',
+    DIALOG: '.modal-dialog',
+    modal_BODY: '.modal-body',
+    DATA_TOGGLE: '[data-toggle="modal"]',
+    DATA_DISMISS: '[data-dismiss="modal"]',
     FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
     STICKY_CONTENT: '.sticky-top'
   };
@@ -2172,10 +2172,10 @@
    * ------------------------------------------------------------------------
    */
 
-  var MoBusiness =
+  var modal =
   /*#__PURE__*/
   function () {
-    function MoBusiness(element, config) {
+    function modal(element, config) {
       this._config = this._getConfig(config);
       this._element = element;
       this._dialog = element.querySelector(Selector$5.DIALOG);
@@ -2188,7 +2188,7 @@
     } // Getters
 
 
-    var _proto = MoBusiness.prototype;
+    var _proto = modal.prototype;
 
     // Public
     _proto.toggle = function toggle(relatedTarget) {
@@ -2280,10 +2280,10 @@
       if (transition) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
         $(this._element).one(Util.TRANSITION_END, function (event) {
-          return _this2._hideMoBusiness(event);
+          return _this2._hidemodal(event);
         }).emulateTransitionEnd(transitionDuration);
       } else {
-        this._hideMoBusiness();
+        this._hidemodal();
       }
     };
 
@@ -2334,10 +2334,10 @@
 
         this._element.classList.add(ClassName$5.STATIC);
 
-        var moBusinessTransitionDuration = Util.getTransitionDurationFromElement(this._element);
+        var modalTransitionDuration = Util.getTransitionDurationFromElement(this._element);
         $(this._element).one(Util.TRANSITION_END, function () {
           _this3._element.classList.remove(ClassName$5.STATIC);
-        }).emulateTransitionEnd(moBusinessTransitionDuration);
+        }).emulateTransitionEnd(modalTransitionDuration);
 
         this._element.focus();
       } else {
@@ -2349,10 +2349,10 @@
       var _this4 = this;
 
       var transition = $(this._element).hasClass(ClassName$5.FADE);
-      var moBusinessBody = this._dialog ? this._dialog.querySelector(Selector$5.MOBusiness_BODY) : null;
+      var modalBody = this._dialog ? this._dialog.querySelector(Selector$5.modal_BODY) : null;
 
       if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
-        // Don't move moBusiness's DOM position
+        // Don't move modal's DOM position
         document.body.appendChild(this._element);
       }
 
@@ -2360,10 +2360,10 @@
 
       this._element.removeAttribute('aria-hidden');
 
-      this._element.setAttribute('aria-moBusiness', true);
+      this._element.setAttribute('aria-modal', true);
 
-      if ($(this._dialog).hasClass(ClassName$5.SCROLLABLE) && moBusinessBody) {
-        moBusinessBody.scrollTop = 0;
+      if ($(this._dialog).hasClass(ClassName$5.SCROLLABLE) && modalBody) {
+        modalBody.scrollTop = 0;
       } else {
         this._element.scrollTop = 0;
       }
@@ -2436,14 +2436,14 @@
       }
     };
 
-    _proto._hideMoBusiness = function _hideMoBusiness() {
+    _proto._hidemodal = function _hidemodal() {
       var _this8 = this;
 
       this._element.style.display = 'none';
 
       this._element.setAttribute('aria-hidden', true);
 
-      this._element.removeAttribute('aria-moBusiness');
+      this._element.removeAttribute('aria-modal');
 
       this._isTransitioning = false;
 
@@ -2531,19 +2531,19 @@
         callback();
       }
     } // ----------------------------------------------------------------------
-    // the following methods are used to handle overflowing moBusinesss
-    // todo (fat): these should probably be refactored out of moBusiness.js
+    // the following methods are used to handle overflowing modals
+    // todo (fat): these should probably be refactored out of modal.js
     // ----------------------------------------------------------------------
     ;
 
     _proto._adjustDialog = function _adjustDialog() {
-      var isMoBusinessOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+      var ismodalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
 
-      if (!this._isBodyOverflowing && isMoBusinessOverflowing) {
+      if (!this._isBodyOverflowing && ismodalOverflowing) {
         this._element.style.paddingLeft = this._scrollbarWidth + "px";
       }
 
-      if (this._isBodyOverflowing && !isMoBusinessOverflowing) {
+      if (this._isBodyOverflowing && !ismodalOverflowing) {
         this._element.style.paddingRight = this._scrollbarWidth + "px";
       }
     };
@@ -2622,14 +2622,14 @@
     } // Static
     ;
 
-    MoBusiness._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
+    modal._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
       return this.each(function () {
         var data = $(this).data(DATA_KEY$5);
 
         var _config = _objectSpread2({}, Default$3, {}, $(this).data(), {}, typeof config === 'object' && config ? config : {});
 
         if (!data) {
-          data = new MoBusiness(this, _config);
+          data = new modal(this, _config);
           $(this).data(DATA_KEY$5, data);
         }
 
@@ -2645,7 +2645,7 @@
       });
     };
 
-    _createClass(MoBusiness, null, [{
+    _createClass(modal, null, [{
       key: "VERSION",
       get: function get() {
         return VERSION$5;
@@ -2657,7 +2657,7 @@
       }
     }]);
 
-    return MoBusiness;
+    return modal;
   }();
   /**
    * ------------------------------------------------------------------------
@@ -2684,7 +2684,7 @@
 
     var $target = $(target).one(Event$5.SHOW, function (showEvent) {
       if (showEvent.isDefaultPrevented()) {
-        // Only register focus restorer if moBusiness will actually get shown
+        // Only register focus restorer if modal will actually get shown
         return;
       }
 
@@ -2695,7 +2695,7 @@
       });
     });
 
-    MoBusiness._jQueryInterface.call($(target), config, this);
+    modal._jQueryInterface.call($(target), config, this);
   });
   /**
    * ------------------------------------------------------------------------
@@ -2703,12 +2703,12 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$5] = MoBusiness._jQueryInterface;
-  $.fn[NAME$5].Constructor = MoBusiness;
+  $.fn[NAME$5] = modal._jQueryInterface;
+  $.fn[NAME$5].Constructor = modal;
 
   $.fn[NAME$5].noConflict = function () {
     $.fn[NAME$5] = JQUERY_NO_CONFLICT$5;
-    return MoBusiness._jQueryInterface;
+    return modal._jQueryInterface;
   };
 
   /**
@@ -3000,7 +3000,7 @@
       clearTimeout(this._timeout);
       $.removeData(this.element, this.constructor.DATA_KEY);
       $(this.element).off(this.constructor.EVENT_KEY);
-      $(this.element).closest('.moBusiness').off('hide.bs.moBusiness', this._hideMoBusinessHandler);
+      $(this.element).closest('.modal').off('hide.bs.modal', this._hidemodalHandler);
 
       if (this.tip) {
         $(this.tip).remove();
@@ -3294,13 +3294,13 @@
         }
       });
 
-      this._hideMoBusinessHandler = function () {
+      this._hidemodalHandler = function () {
         if (_this5.element) {
           _this5.hide();
         }
       };
 
-      $(this.element).closest('.moBusiness').on('hide.bs.moBusiness', this._hideMoBusinessHandler);
+      $(this.element).closest('.modal').on('hide.bs.modal', this._hidemodalHandler);
 
       if (this.config.selector) {
         this.config = _objectSpread2({}, this.config, {
@@ -4507,7 +4507,7 @@
   exports.Carousel = Carousel;
   exports.Collapse = Collapse;
   exports.Dropdown = Dropdown;
-  exports.MoBusiness = MoBusiness;
+  exports.modal = modal;
   exports.Popover = Popover;
   exports.Scrollspy = ScrollSpy;
   exports.Tab = Tab;

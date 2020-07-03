@@ -1169,7 +1169,7 @@
             // if the page is clicked anywhere except within the daterangerpicker/button
             // itself then call this.hide()
             if (
-                // ie moBusiness dialog fix
+                // ie modal dialog fix
                 e.type == "focusin" ||
                 target.closest(this.element).length ||
                 target.closest(this.container).length ||

@@ -40,17 +40,17 @@ namespace EBYS
             
             services.AddDbContext<EfContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")
-                //,                assembly => assembly.MigrationsAssembly("DataAcces")
                 ));
             
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
-            
+
+            //Special Turkish Characters (ð,ü,þ,ç,ö,i) support. https://stackoverflow.com/questions/13451209/charset-utf-8-in-asp-net-for-special-turkish-characters
             services.AddWebEncoders(o => {
                 o.TextEncoderSettings = new System.Text.Encodings.Web.TextEncoderSettings(UnicodeRanges.All);
-            });//Special Turkish Characters (ð,ü,þ,ç,ö,i) support. https://stackoverflow.com/questions/13451209/charset-utf-8-in-asp-net-for-special-turkish-characters
+            });
 
             services.AddHangfire( options =>
             {

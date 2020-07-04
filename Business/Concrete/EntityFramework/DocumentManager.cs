@@ -1,5 +1,5 @@
 ﻿using Business.Abstract;
-using DataAcces.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,13 +16,13 @@ namespace Business.Concrete.EntityFramework
         private readonly IDocumentRelatedManager documentRelatedManager;
         private readonly IDocumentAttachmentManager documentAttachmentManager;
         private readonly IStaffManager staffManager;
-        private readonly IWebHostEnvironment hostEnvironment;
+        private readonly IHostingEnvironment hostEnvironment;
 
         public DocumentManager(IDocumentDal documentDal,
                                IDocumentRelatedManager documentRelatedManager,
                                IDocumentAttachmentManager documentAttachmentManager,
                                IStaffManager staffManager,
-                               IWebHostEnvironment hostEnvironment
+                               IHostingEnvironment hostEnvironment
                                )
         {
             this.documentDal = documentDal;

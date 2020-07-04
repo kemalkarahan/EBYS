@@ -1,7 +1,7 @@
 using Business.Abstract;
 using Business.Concrete.EntityFramework;
-using DataAcces.Abstract;
-using DataAcces.Concrete.EntityFramework;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Services.NativeServices.Abstract;
 using Services.NativeServices.Concrete;
 using Microsoft.AspNetCore.Builder;
